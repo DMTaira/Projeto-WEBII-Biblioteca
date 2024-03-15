@@ -31,6 +31,9 @@ public class EmprestimoService {
         if (!membroEntityOptional.isPresent()) {
             throw new RuntimeException("Membro não cadastrado!");
         }
+        if (membroEntityOptional.get().getAlugou()) {
+            throw new RuntimeException("Membro já tem livro emprestado!");
+        }
         MembroEntity membroEntity = membroEntityOptional.get();
         Optional<LivroEntity> livroEntityOptional = livroRepository.findById(request.getLivro_id());
 
@@ -45,6 +48,13 @@ public class EmprestimoService {
         request.setDataParaDevolucao(request.getDataInicial().plusDays(request.getPrazoEmDias()));
 
         emprestimoRepository.save(new EmprestimoEntity(request,membroEntity,livroEntity));
+
+        livroEntity.setQuantidade(livroEntity.getQuantidade()+1);
+        livroRepository.save(livroEntity);
+
+        membroEntity.setAlugou(true);
+        membroRepository.save(membroEntity);
+
         return request;
 
     }
@@ -86,12 +96,19 @@ public class EmprestimoService {
             BigDecimal diasDeAtraso = BigDecimal.valueOf(ChronoUnit.DAYS.between(request.getDataParaDevolucao(),
                     request.getDataDevolucao()));
             request.setValorMulta(diasDeAtraso.multiply(request.getValorMultaDiaria()));
-        } else request.setValorMulta(BigDecimal.ZERO);
-
-        livroEntity.setQuantidade(livroEntity.getQuantidade()+1);
-        request.setComentario("Emprestimo concluido com multa por atraso.");
+            request.setComentario("Emprestimo concluido com multa por atraso.");
+        } else {
+            request.setValorMulta(BigDecimal.ZERO);
+            request.setComentario("Emprestimo devolvido no prazo.");
+        }
 
         emprestimoRepository.save(new EmprestimoEntity(request,membroEntity,livroEntity));
+
+        livroEntity.setQuantidade(livroEntity.getQuantidade()+1);
+        livroRepository.save(livroEntity);
+
+        membroEntity.setAlugou(false);
+        membroRepository.save(membroEntity);
 
         return request;
 
