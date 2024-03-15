@@ -133,13 +133,13 @@ Os seguintes bancos de dados foram criados, com as respectivas funcionalidades:
     
 {
 
-          "nomeCompleto": "Julia Yumi Kita",
-          "endereco": "Rua Afonso Pena, 109",
+          "nomeCompleto": "Dirce Yumi Kita",
+          "endereco": "Rua Afonso Pena, xxx",
           "nacionalidade": "brasileira",
-          "email": "julia.kita@gmail.com",
-          "telefone": "(11)99918-5428",
-          "dataNascimento": "1959-05-16",
-          "alugou": null
+          "email": "a.b@gmail.com",
+          "telefone": "(11)99999-5428",
+          "dataNascimento": "2000-05-16",
+          "alugou": false
 
 }
 -   PUT localhost:8080/membros/id   - para alterar campos dos membros
@@ -147,13 +147,13 @@ Os seguintes bancos de dados foram criados, com as respectivas funcionalidades:
 
   {
 
-          "nomeCompleto": "Julia Yumi Kita",
-          "endereco": "Rua Afonso Pena, 109",
+          "nomeCompleto": "Julia Taira",
+          "endereco": "Rua Afonso Pena, 999",
           "nacionalidade": "brasileira",
-          "email": "julia.kita@gmail.com",
-          "telefone": "(11)99918-5428",
-          "dataNascimento": "1959-05-16",
-          "alugou": null
+          "email": "julia.taira@gmail.com",
+          "telefone": "(11)99918-5555",
+          "dataNascimento": "1999-05-16",
+          "alugou": false
 
 }
 - emprestimosdb 
