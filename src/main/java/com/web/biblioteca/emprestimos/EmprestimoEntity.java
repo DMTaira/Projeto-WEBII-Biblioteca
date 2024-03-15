@@ -25,11 +25,23 @@ public class EmprestimoEntity {
     private LocalDate dataParaDevolucao;
     private LocalDate dataDevolucao;
     private Integer prazoEmDias;
-    private BigDecimal valorNormal;
+    private BigDecimal valorMultaDiaria;
     private BigDecimal valorMulta;
-    private BigDecimal valorTotal;
     private String comentario;
 
+    public EmprestimoEntity () {}
+
+    public EmprestimoEntity(EmprestimoRequest request,MembroEntity membro, LivroEntity livro) {
+        this.membro = membro;
+        this.livro = livro;
+        this.dataInicial = request.getDataInicial();
+        this.dataParaDevolucao = request.getDataParaDevolucao();
+        this.dataDevolucao = request.getDataDevolucao();
+        this.prazoEmDias = request.getPrazoEmDias();
+        this.valorMultaDiaria = request.getValorMultaDiaria();
+        this.valorMulta = request.getValorMulta();
+        this.comentario = request.getComentario();
+    }
     public Long getId() {
         return id;
     }
@@ -86,12 +98,12 @@ public class EmprestimoEntity {
         this.prazoEmDias = prazoEmDias;
     }
 
-    public BigDecimal getValorNormal() {
-        return valorNormal;
+    public BigDecimal getValorMultaDiaria() {
+        return valorMultaDiaria;
     }
 
-    public void setValorNormal(BigDecimal valorNormal) {
-        this.valorNormal = valorNormal;
+    public void setValorMultaDiaria(BigDecimal valorMultaDiaria) {
+        this.valorMultaDiaria = valorMultaDiaria;
     }
 
     public BigDecimal getValorMulta() {
@@ -102,13 +114,6 @@ public class EmprestimoEntity {
         this.valorMulta = valorMulta;
     }
 
-    public BigDecimal getValorTotal() {
-        return valorTotal;
-    }
-
-    public void setValorTotal(BigDecimal valorTotal) {
-        this.valorTotal = valorTotal;
-    }
 
     public String getComentario() {
         return comentario;

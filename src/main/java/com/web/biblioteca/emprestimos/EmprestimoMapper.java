@@ -18,10 +18,8 @@ public class EmprestimoMapper {
         this.membroRepository = membroRepository;
     }
     public static EmprestimoDto convertEntityToDto(EmprestimoEntity entity) {
-        EmprestimoDto emprestimoDto = new EmprestimoDto();
+        EmprestimoDto emprestimoDto = new EmprestimoDto(entity);
         BeanUtils.copyProperties(entity,emprestimoDto);
-        emprestimoDto.setLivro_id(entity.getLivro().getId());
-        emprestimoDto.setMembro_id(entity.getMembro().getId());
 
         return emprestimoDto;
     }

@@ -12,10 +12,21 @@ public class EmprestimoDto {
     private LocalDate dataParaDevolucao;
     private LocalDate dataDevolucao;
     private Integer prazoEmDias;
-    private BigDecimal valorNormal;
+    private BigDecimal valorMultaDiaria;
     private BigDecimal valorMulta;
-    private BigDecimal valorTotal;
     private String comentario;
+
+    public EmprestimoDto(EmprestimoEntity emprestimoEntity) {
+        this.livro_id = emprestimoEntity.getLivro().getId();
+        this.membro_id = emprestimoEntity.getMembro().getId();
+        this.dataInicial = emprestimoEntity.getDataInicial();
+        this.dataParaDevolucao = emprestimoEntity.getDataParaDevolucao();
+        this.dataDevolucao = emprestimoEntity.getDataDevolucao();
+        this.prazoEmDias = emprestimoEntity.getPrazoEmDias();
+        this.valorMulta = emprestimoEntity.getValorMulta();
+        this.valorMultaDiaria = emprestimoEntity.getValorMultaDiaria();
+        this.comentario = emprestimoEntity.getComentario();
+    }
 
     public Long getMembro_id() {
         return membro_id;
@@ -65,12 +76,12 @@ public class EmprestimoDto {
         this.prazoEmDias = prazoEmDias;
     }
 
-    public BigDecimal getValorNormal() {
-        return valorNormal;
+    public BigDecimal getMultaDiaria() {
+        return valorMultaDiaria;
     }
 
-    public void setValorNormal(BigDecimal valorNormal) {
-        this.valorNormal = valorNormal;
+    public void setMultaDiaria(BigDecimal multaDiaria) {
+        this.valorMultaDiaria = multaDiaria;
     }
 
     public BigDecimal getValorMulta() {
@@ -81,13 +92,6 @@ public class EmprestimoDto {
         this.valorMulta = valorMulta;
     }
 
-    public BigDecimal getValorTotal() {
-        return valorTotal;
-    }
-
-    public void setValorTotal(BigDecimal valorTotal) {
-        this.valorTotal = valorTotal;
-    }
 
     public String getComentario() {
         return comentario;

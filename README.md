@@ -41,7 +41,7 @@ Implementar uma aplicação para abranger:
 
 
 ## Diagrama de classes básico do projeto
-<img src="./imagens/fotofilme.png" alt="Película de filme">
+
 
 ### Estrutura de Dados
 Foram desenvolvidas as classes Livro, Membro, Emprestimo

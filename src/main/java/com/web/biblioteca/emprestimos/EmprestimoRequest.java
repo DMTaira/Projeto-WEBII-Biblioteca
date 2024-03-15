@@ -1,6 +1,7 @@
 package com.web.biblioteca.emprestimos;
 
 import jakarta.validation.constraints.NotNull;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -9,19 +10,19 @@ public class EmprestimoRequest {
 
     private Long membro_id;
     private Long livro_id;
-    @NotNull(message = "Data do empréstimo não pode estar nula")
+
+    @DateTimeFormat(pattern="yyyy-mm-dd")
     private LocalDate dataInicial;
-    @NotNull(message = "Data limite para devolução não pode estar nula")
     private LocalDate dataParaDevolucao;
-    @NotNull(message = "Data da devolução não pode estar nula")
+
+    @DateTimeFormat(pattern="yyyy-mm-dd")
     private LocalDate dataDevolucao;
-    @NotNull(message = "Prazo para devolução em dias não pode ser nulo. ")
+
     private Integer prazoEmDias;
-    @NotNull(message = "Valor para cobrança normal não pode ser nulo. ")
-    private BigDecimal valorNormal;
+
+    private BigDecimal valorMultaDiaria;
 
     private BigDecimal valorMulta;
-    private BigDecimal valorTotal;
     private String comentario;
 
     public Long getMembro_id() {
@@ -72,12 +73,12 @@ public class EmprestimoRequest {
         this.prazoEmDias = prazoEmDias;
     }
 
-    public BigDecimal getValorNormal() {
-        return valorNormal;
+    public BigDecimal getValorMultaDiaria() {
+        return valorMultaDiaria;
     }
 
-    public void setValorNormal(BigDecimal valorNormal) {
-        this.valorNormal = valorNormal;
+    public void setValorMultaDiaria(BigDecimal valorMultaDiaria) {
+        this.valorMultaDiaria = valorMultaDiaria;
     }
 
     public BigDecimal getValorMulta() {
@@ -88,13 +89,6 @@ public class EmprestimoRequest {
         this.valorMulta = valorMulta;
     }
 
-    public BigDecimal getValorTotal() {
-        return valorTotal;
-    }
-
-    public void setValorTotal(BigDecimal valorTotal) {
-        this.valorTotal = valorTotal;
-    }
 
     public String getComentario() {
         return comentario;
@@ -106,13 +100,16 @@ public class EmprestimoRequest {
 
     public EmprestimoRequest() {}
     public EmprestimoRequest(EmprestimoEntity emprestimoEntity) {
+        this.livro_id = emprestimoEntity.getLivro().getId();
+        this.membro_id = emprestimoEntity.getMembro().getId();
         this.dataInicial = emprestimoEntity.getDataInicial();
         this.dataParaDevolucao = emprestimoEntity.getDataParaDevolucao();
         this.dataDevolucao = emprestimoEntity.getDataDevolucao();
         this.prazoEmDias = emprestimoEntity.getPrazoEmDias();
         this.valorMulta = emprestimoEntity.getValorMulta();
-        this.valorNormal = emprestimoEntity.getValorNormal();
-        this.valorTotal = emprestimoEntity.getValorTotal();
+        this.valorMultaDiaria = emprestimoEntity.getValorMultaDiaria();
         this.comentario = emprestimoEntity.getComentario();
     }
+
+
 }

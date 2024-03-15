@@ -43,7 +43,7 @@ public class LivroService {
             return new LivroRequest(livroEntityAlterado);
         }
         else {
-            throw new RuntimeException("Erro: livro nao alterado. ");
+            throw new RuntimeException("Livro nao alterado. ");
         }
     }
 
