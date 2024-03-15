@@ -6,7 +6,7 @@
 
 - **Deyse Ribeiro**
 - **Dirce Mitiko Taira**
-- **Gerson Camillo**
+
 
 ### Tecnologia:
 * Java 20
