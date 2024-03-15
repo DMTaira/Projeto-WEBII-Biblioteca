@@ -74,10 +74,10 @@ classDiagram
     Emprestimo : LocalDate dataInicial
     Emprestimo : LocalDate dataParaDevolucao
     Emprestimo : LocalDate dataDevolucao
-    Emprestimo : LocalDate dataInicial
     Emprestimo : Integer prazoEmDias
-    Emprestimo : LocalDate dataInicial
-    Emprestimo : LocalDate dataInicial
+    Emprestimo : BigDecimal valorMultaDiaria
+    Emprestimo : BigDecimal valorMulta
+    Emprestimo : String comentario
     
     
     
@@ -88,68 +88,110 @@ classDiagram
    
 ```
 
-# Alguns comandos básicos em GIT para este projeto
+# Alguns comandos para testes dos Bancos de Dados
 
-(https://github.com/glcamillo) no GitHub e foram incluídos os seguintes colaaboradores:
-1. Deyse Ribeiro
-2. Gerson Camillo
+Utilizamos o Postman e pgAdmin para verificações nos bancos de dados.
 
-Num primeiro momento, o projeto deve ser trazido para a máquina pessoal de cada participante via:
-`git clone https://github.com/glcamillo/poo-projeto-catalogo-imdb.git`
+Os seguintes bancos de dados foram criados, com as respectivas funcionalidades:
+- livrodb
+  - GET localhost:8080/livros  - para listar todos os livros
+  - GET localhost:8080/livros/id - para listar um id especifico
+  - POST localhost:8080/livros   - para incluir novos livros
+      
+    - Exemplo de JSON:
 
-a) Antes de iniciar qualquer alteração/inclusão de código, atualizar o repositório LOCAL com o comando a seguir:
+    {
 
-`git pull`
+              "titulo": "Iracema",
+              "autor": "Jose de Alencar",
+              "genero": "literatura brasileira",
+              "anoLancamento": "1950",
+              "isbn": "ISBN 978–85–333–0227–3 ",
+              "quantidade": 1
 
-Observações:
-- Comandos considerando que o projeto já tenha sido clonado para a máquina local;
-- Todos os comandos devem ser executados no diretório do projeto. Ao abrir no IntelliJ, ele já abre o terminal no diretório corrente do projeto.
+            }
+  
+    - PUT localhost:8080/livros/id   - para alteras campos de livros
+      - Exemplo de JSON:
 
-b) Os próximos comandos são opcionais, apenas para "conhecer" melhor o que está acontecendo:
+    {
 
-`git status`
+              "titulo": "Iracema",
+              "autor": "Jose de Alencar",
+              "genero": "literatura brasileira",
+              "anoLancamento": "1950",
+              "isbn": "ISBN 978–85–333–0227–3 ",
+              "quantidade": 1
 
-`git log` Teclar 'q' para sair
+            }
+  
+  - membrosdb
+    - GET localhost:8080/membros  - para listar todos os membros
+    - GET localhost:8080/membros/id - para listar um membro especifico
+    - POST localhost:8080/membros   - para incluir novos membros (é feita checagem de emails duplicados)
+      - Exemplo de JSON:
+    
+{
 
-`git branch` ou `git branch -a` ou `git branch -r`
+          "nomeCompleto": "Julia Yumi Kita",
+          "endereco": "Rua Afonso Pena, 109",
+          "nacionalidade": "brasileira",
+          "email": "julia.kita@gmail.com",
+          "telefone": "(11)99918-5428",
+          "dataNascimento": "1959-05-16",
+          "alugou": null
 
-c) Este comando faz o git ir para "nossa área de trabalho local" (**Working Directory**), ou seja, a `branch` na qual será realizado todo o trabalho. Durante o `push`, as alterações irão para esta linha (branch) no repositório remoto. A `branch` **main** só receberá as alterações depois de um `merge`que será acionado por um `pull request`.
+}
+-   PUT localhost:8080/membros/id   - para alterar campos dos membros
+    - Exemplo de JSON:
 
-`git checkout minha-branch-de-trabalho`
+  {
 
-Ou, se ***ainda não tiver criado sua branch*** então deve ser executado o seguinte comando. Ele cria uma nova branch local e ela já se torna a branch de trabalho atual.
+          "nomeCompleto": "Julia Yumi Kita",
+          "endereco": "Rua Afonso Pena, 109",
+          "nacionalidade": "brasileira",
+          "email": "julia.kita@gmail.com",
+          "telefone": "(11)99918-5428",
+          "dataNascimento": "1959-05-16",
+          "alugou": null
 
-`git checkout -b minha-branch-de-trabalho`
+}
+- emprestimosdb 
+  - GET localhost:8080/emprestimos  - para listar todos os emprestimos
+  - GET localhost:8080/emprestimos/id - para listar um emprestimo especifico
+  - POST localhost:8080/emprestimos   - para incluir novos emprestimos 
+      - Exemplo de JSON:
 
-d) Depois de codificados/alterados os arquivos, deve-se adicionar os mesmos na **Staging Area (Index)** que faz com que o git fique cientificado dessas alterações.
+{
 
-`git add meu-arquivo.java` ou `git add .` Aqui adiciona todas as alterações do diretório corrente.
+            "membro_id": 5,
+            "livro_id": 8,
+            "dataInicial": "2024-03-10",
+            "dataParaDevolucao": null,
+            "dataDevolucao": null,
+            "prazoEmDias": 3,
+            "valorMulta": null,
+            "comentario": null,
+            "multaDiaria": 3.00",
+            "comentario":"cadastrando emprestimo"
 
-e) Da área de **Index** para o seu repositório local (**repository**):
+}
+    
+- PUT   localhost:8080/emprestimos/devolver/id   - para incluir novos emprestimos
+    - Exemplo de JSON:
 
-`git commit -m "Mensagem informando o que foi feito"`
+{
 
-f) O diretório local está sincronizado quanto às alterações. Agora é a hora de levar essas alterações para o diretório remoto do projeto no GitHub.
+            "membro_id": 5,
+            "livro_id": 8,
+            "dataDevolucao": "2024-03-10",
+            "prazoEmDias": 3,
+            "valorMulta": null,
+            "comentario": null,
+            "multaDiaria": 3.00",
+            "comentario":"devolvendo emprestimo"
 
-`git push` Pode não funcionar, então, um comando mais específico seria:
+}
 
-`git push -u origin minha-branch-de-trabalho`  (`-u`é  sinônimo para `--set-upstream` e **origin** é o nome do remoto)
 
-**Importante** A branch `minha-branch-de-trabalho` no remoto `origin` (GitHub) está atualizada. Entra o trabalho de **merge** no qual as alterações serão incorporadas na linha principal (`main`).
-
-g) **Mais importante ainda:** nesta fase do trabalho em que estamos trabalhando nos mesmos códigos, é importante trazer as alterações mais recentes da branch `main` para a nossa brainch local de trabalho `minha-branch-de-trabalho` (isso poderia também ser feito no GitHub). A sequência de comandos é a seguinte:
-
-`git checkout main` Indo pro branch da linha principal.
-
-`git pull` Sincronizando (trazendo as alterações) mais recentes do remoto `origin`.
-
-`git chechout minha-branch-de-trabalho` Indo pra branch local.
-
-`git pull` Sincronizando a branch local.
-
-E, agora, o comando que vai atualizar a branch `minha-branch-de-trabalho` com as alterações da linha `main`.
-
-`git merge main`
-
-E, depois, voltar para a branch de trabalho.
 
